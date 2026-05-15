@@ -16,11 +16,23 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-export { CTA } from './sections/cta'
-export { FAQ } from './sections/faq'
-export { Features } from './sections/features'
-export { Hero } from './sections/hero'
-export { HomeIcon } from './home-icon'
-export { HowItWorks } from './sections/how-it-works'
-export { ProviderLogo } from './provider-logo'
-export { Stats } from './sections/stats'
+.text-type {
+  display: inline-block;
+  white-space: pre-wrap;
+}
+
+.text-type__inner {
+  display: inline-block;
+  min-width: 1px;
+  min-height: 1em;
+}
+
+.text-type__cursor {
+  display: inline-block;
+  margin-left: 0.25rem;
+  opacity: 1;
+}
+
+.text-type__cursor--hidden {
+  display: none;
+}

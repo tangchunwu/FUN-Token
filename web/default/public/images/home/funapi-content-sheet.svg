@@ -1,0 +1,33 @@
+<svg width="360" height="280" viewBox="0 0 360 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="contentBase" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(178 224) rotate(90) scale(42 100)">
+      <stop stop-color="#FFFDFB"/>
+      <stop offset="0.66" stop-color="#FFB16D"/>
+      <stop offset="1" stop-color="#FF6800"/>
+    </radialGradient>
+    <linearGradient id="sheetFill" x1="110" y1="58" x2="240" y2="194" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9F4"/>
+      <stop offset="0.55" stop-color="#FFDAB9"/>
+      <stop offset="1" stop-color="#FFB170"/>
+    </linearGradient>
+    <linearGradient id="penFill" x1="212" y1="95" x2="268" y2="158" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFC079"/>
+      <stop offset="1" stop-color="#FF6B00"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="178" cy="228" rx="102" ry="26" fill="url(#contentBase)" opacity="0.5"/>
+  <ellipse cx="178" cy="233" rx="73" ry="18" fill="#FFF8F1" opacity="0.95"/>
+  <path d="M127 70C127 60 135 52 145 52H220C230 52 238 60 238 70V180C238 190 230 198 220 198H145C135 198 127 190 127 180V70Z" fill="url(#sheetFill)"/>
+  <path d="M200 52H220C230 52 238 60 238 70V90H218C208 90 200 82 200 72V52Z" fill="#FFF3E7"/>
+  <path d="M153 92H208" stroke="#FFF7F0" stroke-width="8" stroke-linecap="round"/>
+  <path d="M153 116H211" stroke="#FFD7B3" stroke-width="8" stroke-linecap="round"/>
+  <path d="M153 140H198" stroke="#FFD7B3" stroke-width="8" stroke-linecap="round"/>
+  <path d="M226 136L252 95L287 130L261 171L226 136Z" fill="url(#penFill)"/>
+  <path d="M252 95L263 84L298 119L287 130L252 95Z" fill="#FFE8D1"/>
+  <path d="M226 136L216 169L249 159L226 136Z" fill="#FFC68F"/>
+  <rect x="256" y="70" width="42" height="32" rx="10" fill="#FFF8F1" opacity="0.9"/>
+  <path d="M275 86C278 80 286 79 290 83C294 87 293 94 288 97C284 100 277 99 274 94" fill="#FF8640"/>
+  <rect x="82" y="152" width="34" height="34" rx="8" fill="#FFF8F1" opacity="0.9"/>
+  <path d="M92 170H106" stroke="#FF954A" stroke-width="5" stroke-linecap="round"/>
+  <path d="M174 31C179 22 193 22 199 31" stroke="#FFF1E0" stroke-width="8" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,34 @@
+<svg width="360" height="280" viewBox="0 0 360 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="chatBase" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(178 224) rotate(90) scale(42 100)">
+      <stop stop-color="#FFFDFB"/>
+      <stop offset="0.66" stop-color="#FFB16D"/>
+      <stop offset="1" stop-color="#FF6800"/>
+    </radialGradient>
+    <radialGradient id="chatShell" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(182 138) rotate(90) scale(62 64)">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="0.58" stop-color="#FFF2E6"/>
+      <stop offset="1" stop-color="#FFD4AF"/>
+    </radialGradient>
+    <linearGradient id="chatFace" x1="145" y1="118" x2="221" y2="166" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFA95F"/>
+      <stop offset="1" stop-color="#FF6500"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="178" cy="228" rx="102" ry="26" fill="url(#chatBase)" opacity="0.5"/>
+  <ellipse cx="178" cy="233" rx="73" ry="18" fill="#FFF8F1" opacity="0.95"/>
+  <path d="M178 53C215 53 245 82 245 119V145C245 182 215 211 178 211C141 211 111 182 111 145V119C111 82 141 53 178 53Z" fill="url(#chatShell)"/>
+  <path d="M149 112H207C221 112 233 124 233 138C233 152 221 164 207 164H149C135 164 123 152 123 138C123 124 135 112 149 112Z" fill="url(#chatFace)"/>
+  <circle cx="160" cy="138" r="8" fill="#FFF7F0"/>
+  <circle cx="196" cy="138" r="8" fill="#FFF7F0"/>
+  <path d="M141 76C153 65 165 60 178 60C191 60 203 65 215 76" stroke="#FFF7F0" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+  <rect x="130" y="200" width="96" height="18" rx="9" fill="#FFF9F3" opacity="0.92"/>
+  <path d="M118 178C126 194 143 205 162 208" stroke="#FFD0A6" stroke-width="10" stroke-linecap="round"/>
+  <path d="M238 98L274 109C281 111 286 118 286 126V147C286 156 279 163 270 163H248L236 176V98H238Z" fill="#FFF8F1" opacity="0.95"/>
+  <circle cx="255" cy="136" r="7" fill="#FF7A1A"/>
+  <circle cx="274" cy="136" r="7" fill="#FF7A1A" opacity="0.75"/>
+  <circle cx="293" cy="136" r="7" fill="#FF7A1A" opacity="0.5"/>
+  <path d="M93 121L72 108C67 105 64 99 64 93V71C64 63 70 57 78 57H97L107 47V121H93Z" fill="#FFF8F1" opacity="0.9"/>
+  <path d="M82 73H95" stroke="#FF954A" stroke-width="6" stroke-linecap="round"/>
+  <path d="M82 89H96" stroke="#FF954A" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+</svg>

@@ -16,11 +16,23 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-export { CTA } from './sections/cta'
-export { FAQ } from './sections/faq'
-export { Features } from './sections/features'
-export { Hero } from './sections/hero'
-export { HomeIcon } from './home-icon'
-export { HowItWorks } from './sections/how-it-works'
-export { ProviderLogo } from './provider-logo'
-export { Stats } from './sections/stats'
+import { HugeiconsIcon, type IconSvgElement } from '@hugeicons/react'
+import { cn } from '@/lib/utils'
+
+interface HomeIconProps {
+  icon: IconSvgElement
+  className?: string
+  size?: number
+  strokeWidth?: number
+}
+
+export function HomeIcon(props: HomeIconProps) {
+  return (
+    <HugeiconsIcon
+      icon={props.icon}
+      size={props.size ?? 24}
+      strokeWidth={props.strokeWidth ?? 1.8}
+      className={cn('shrink-0', props.className)}
+    />
+  )
+}

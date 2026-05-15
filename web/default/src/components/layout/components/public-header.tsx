@@ -81,7 +81,7 @@ export function PublicHeader(props: PublicHeaderProps) {
 
   const user = auth.user
   const isAuthenticated = !!user
-  const displaySiteName = customSiteName || systemName
+  const displaySiteName = customSiteName || systemName || 'New API'
   const links = dynamicLinks.length > 0 ? dynamicLinks : navLinks
 
   useEffect(() => {
@@ -102,19 +102,21 @@ export function PublicHeader(props: PublicHeaderProps) {
     <>
       <header className='pointer-events-none fixed inset-x-0 top-0 z-50'>
         <div
-          className={cn(
-            'pointer-events-auto mx-auto transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
-            scrolled ? 'max-w-[52rem] px-3 pt-3' : 'max-w-7xl px-4 pt-0 md:px-6'
-          )}
+              className={cn(
+                'pointer-events-auto mx-auto transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                scrolled
+                  ? 'max-w-[78rem] px-4 pt-4'
+                  : 'max-w-[92rem] px-4 pt-3 md:px-7'
+              )}
         >
           <nav
-            className={cn(
-              'flex items-center justify-between transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
-              scrolled
-                ? 'bg-background/60 ring-border/50 h-12 rounded-2xl pr-1.5 pl-4 shadow-[0_2px_16px_-6px_rgba(0,0,0,0.08),0_0_0_0.5px_rgba(0,0,0,0.02)] ring-[0.5px] backdrop-blur-2xl dark:shadow-[0_2px_16px_-6px_rgba(0,0,0,0.4)]'
-                : 'h-16 px-2'
-            )}
-          >
+              className={cn(
+                'flex items-center justify-between transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                scrolled
+                  ? 'h-16 rounded-[28px] border border-orange-100/85 bg-white/78 px-5 shadow-[0_24px_60px_-36px_rgba(249,115,22,0.28)] backdrop-blur-2xl'
+                  : 'h-16 rounded-[28px] bg-transparent px-2 md:px-3'
+              )}
+            >
             {/* Logo */}
             <Link
               to={homeUrl}
@@ -134,15 +136,17 @@ export function PublicHeader(props: PublicHeaderProps) {
                   />
                 )}
               </div>
-              <span className='text-sm font-semibold tracking-tight'>
+              <span className='text-lg font-semibold tracking-tight text-slate-900'>
                 {loading ? <Skeleton className='h-4 w-16' /> : displaySiteName}
               </span>
             </Link>
 
             {/* Desktop nav */}
-            <div className='hidden items-center gap-0.5 sm:flex'>
+            <div className='hidden items-center gap-1 sm:flex'>
               {links.map((link, i) => {
-                const isActive = pathname === link.href
+                const isActive =
+                  pathname === link.href ||
+                  (link.href !== '/' && pathname.startsWith(link.href))
                 if (link.external) {
                   return (
                     <a
@@ -150,7 +154,7 @@ export function PublicHeader(props: PublicHeaderProps) {
                       href={link.href}
                       target='_blank'
                       rel='noopener noreferrer'
-                      className='text-muted-foreground hover:text-foreground rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors duration-200'
+                      className='rounded-full px-4 py-2 text-[15px] font-medium text-slate-700 transition-colors duration-200 hover:text-orange-500'
                     >
                       {t(link.title)}
                     </a>
@@ -161,10 +165,10 @@ export function PublicHeader(props: PublicHeaderProps) {
                     key={i}
                     to={link.href}
                     className={cn(
-                      'rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors duration-200',
+                      'relative rounded-full px-4 py-2 text-[15px] font-medium transition-all duration-200 hover:bg-white/65 hover:shadow-[0_12px_30px_-24px_rgba(249,115,22,0.42)]',
                       isActive
-                        ? 'text-foreground'
-                        : 'text-muted-foreground hover:text-foreground'
+                        ? 'text-slate-950 after:absolute after:inset-x-4 after:-bottom-1 after:h-[3px] after:rounded-full after:bg-orange-500'
+                        : 'text-slate-700 hover:text-orange-500'
                     )}
                   >
                     {t(link.title)}
@@ -175,7 +179,7 @@ export function PublicHeader(props: PublicHeaderProps) {
               {(showLanguageSwitcher ||
                 showThemeSwitch ||
                 showNotifications) && (
-                <div className='bg-border/40 mx-2 h-4 w-px' />
+                <div className='mx-2 h-5 w-px bg-orange-100' />
               )}
 
               {showLanguageSwitcher && <LanguageSwitcher />}
@@ -189,19 +193,29 @@ export function PublicHeader(props: PublicHeaderProps) {
 
               {showAuthButtons && (
                 <>
-                  <div className='bg-border/40 mx-1 h-4 w-px' />
+                  <div className='mx-1 h-5 w-px bg-orange-100' />
                   {loading ? (
-                    <Skeleton className='h-8 w-20 rounded-lg' />
+                    <Skeleton className='h-10 w-24 rounded-full' />
                   ) : isAuthenticated ? (
                     <ProfileDropdown />
                   ) : (
-                    <Button
-                      size='sm'
-                      className='h-8 rounded-lg px-3.5 text-xs font-medium'
-                      render={<Link to='/sign-in' />}
-                    >
-                      {t('Sign in')}
-                    </Button>
+                    <div className='flex items-center gap-3'>
+                      <Button
+                        size='lg'
+                        variant='outline'
+                        className='h-11 rounded-full border-orange-100 bg-white/75 px-6 text-sm font-medium text-slate-700 shadow-[0_16px_35px_-28px_rgba(249,115,22,0.35)] backdrop-blur-xl hover:bg-white'
+                        render={<Link to='/sign-in' />}
+                      >
+                        {t('登录')}
+                      </Button>
+                      <Button
+                        size='lg'
+                        className='h-11 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 px-6 text-sm font-medium shadow-[0_20px_40px_-24px_rgba(249,115,22,0.78)] hover:from-orange-400 hover:to-orange-500'
+                        render={<Link to='/sign-up' />}
+                      >
+                        {t('注册')}
+                      </Button>
+                    </div>
                   )}
                 </>
               )}
@@ -217,7 +231,7 @@ export function PublicHeader(props: PublicHeaderProps) {
                 type='button'
                 variant='ghost'
                 size='icon'
-                className='size-9'
+                className='size-10 rounded-full border border-orange-100 bg-white/70 text-slate-700 shadow-[0_16px_30px_-24px_rgba(249,115,22,0.35)] backdrop-blur-xl'
                 onClick={() => setMobileOpen((v) => !v)}
                 aria-label={t('Toggle navigation menu')}
               >
@@ -250,7 +264,7 @@ export function PublicHeader(props: PublicHeaderProps) {
       {/* Mobile full-screen overlay */}
       <div
         className={cn(
-          'bg-background/98 fixed inset-0 z-40 backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:pointer-events-none sm:hidden',
+          'fixed inset-0 z-40 bg-[linear-gradient(180deg,rgba(255,252,248,0.98),rgba(255,247,239,0.98))] backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:pointer-events-none sm:hidden',
           mobileOpen
             ? 'pointer-events-auto opacity-100'
             : 'pointer-events-none opacity-0'
@@ -270,7 +284,7 @@ export function PublicHeader(props: PublicHeaderProps) {
                     mobileOpen
                       ? 'translate-y-0 opacity-100'
                       : 'translate-y-4 opacity-0',
-                    isActive ? 'text-foreground' : 'text-muted-foreground'
+                    isActive ? 'text-slate-950' : 'text-slate-600'
                   )}
                   style={{
                     transitionDelay: mobileOpen ? `${100 + i * 50}ms` : '0ms',
@@ -295,9 +309,9 @@ export function PublicHeader(props: PublicHeaderProps) {
               <Link
                 to={isAuthenticated ? '/dashboard' : '/sign-in'}
                 onClick={() => setMobileOpen(false)}
-                className='bg-foreground text-background inline-flex h-10 items-center justify-center rounded-lg text-sm font-medium transition-opacity hover:opacity-90 active:opacity-80'
+                className='inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-sm font-medium text-white shadow-[0_20px_40px_-24px_rgba(249,115,22,0.78)] transition-opacity hover:opacity-90 active:opacity-80'
               >
-                {isAuthenticated ? t('Go to Dashboard') : t('Sign in')}
+                {isAuthenticated ? t('进入控制台') : t('登录')}
               </Link>
             )}
           </div>

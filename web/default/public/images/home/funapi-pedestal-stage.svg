@@ -1,0 +1,35 @@
+<svg width="720" height="560" viewBox="0 0 720 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(360 410) rotate(90) scale(126 250)">
+      <stop stop-color="#FFF6EE"/>
+      <stop offset="0.46" stop-color="#FFD8B8" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#FFB36E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="plateTop" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(360 430) rotate(90) scale(50 146)">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="0.5" stop-color="#FFF3E5"/>
+      <stop offset="1" stop-color="#FFC489" stop-opacity="0.38"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="207" y1="436" x2="512" y2="436" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9F5"/>
+      <stop offset="0.5" stop-color="#FFB16F"/>
+      <stop offset="1" stop-color="#FFF8F1"/>
+    </linearGradient>
+    <filter id="blurA" x="60" y="252" width="600" height="228" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+  </defs>
+  <g filter="url(#blurA)" opacity="0.55">
+    <ellipse cx="360" cy="380" rx="222" ry="58" fill="#FFB06D"/>
+  </g>
+  <ellipse cx="360" cy="392" rx="304" ry="84" fill="url(#bgGlow)" opacity="0.85"/>
+  <ellipse cx="360" cy="398" rx="230" ry="62" stroke="#FFD7B7" stroke-width="2" opacity="0.78"/>
+  <ellipse cx="360" cy="406" rx="186" ry="49" stroke="#FFE8D1" stroke-width="2" opacity="0.85"/>
+  <ellipse cx="360" cy="414" rx="138" ry="36" stroke="#FFE8D1" stroke-width="2" opacity="0.85"/>
+  <ellipse cx="360" cy="448" rx="156" ry="39" fill="#FFFFFF" fill-opacity="0.84"/>
+  <ellipse cx="360" cy="438" rx="150" ry="34" fill="url(#plateTop)"/>
+  <ellipse cx="360" cy="438" rx="153" ry="36" stroke="url(#rim)" stroke-width="4"/>
+  <ellipse cx="360" cy="438" rx="106" ry="24" fill="#FFFDFC" fill-opacity="0.95"/>
+  <ellipse cx="360" cy="438" rx="90" ry="18" fill="#FFE9D6"/>
+  <ellipse cx="360" cy="469" rx="190" ry="18" fill="#FFB26A" fill-opacity="0.14"/>
+</svg>

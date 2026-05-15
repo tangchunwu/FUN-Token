@@ -16,224 +16,348 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
+import { useState } from 'react'
 import {
-  Zap,
-  Shield,
-  Globe,
-  Code,
-  Gauge,
-  DollarSign,
-  Users,
-  HeartHandshake,
-} from 'lucide-react'
+  Copy01Icon,
+} from '@hugeicons/core-free-icons'
 import { useTranslation } from 'react-i18next'
+import { copyToClipboard } from '@/lib/copy-to-clipboard'
 import { AnimateInView } from '@/components/animate-in-view'
+import { CountUp } from '../count-up'
+import { HomeIcon } from '../home-icon'
 
-interface FeaturesProps {
-  className?: string
+const tabs = ['Python', 'Node.js', 'cURL', 'Go'] as const
+type CodeTab = (typeof tabs)[number]
+
+const codeSamples: Record<CodeTab, string> = {
+  Python: `import requests
+import json
+base_url = 'https://token.fun.tv/v1'
+api_key = 'sk-funtoken-***'
+headers = {
+  'Authorization': f'Bearer {api_key}',
+  'Content-Type': 'application/json'
+}
+payload = {
+  'model': 'funtoken-pro',
+  'messages': [{'role': 'user', 'content': '你好，请介绍一下 funtoken。'}],
+  'stream': False
+}
+response = requests.post(f'{base_url}/chat/completions', headers=headers, json=payload)
+result = response.json()
+print(result['choices'][0]['message']['content'])`,
+  'Node.js': `const baseUrl = 'https://token.fun.tv/v1'
+const apiKey = 'sk-funtoken-***'
+
+const response = await fetch(\`\${baseUrl}/chat/completions\`, {
+  method: 'POST',
+  headers: {
+    Authorization: \`Bearer \${apiKey}\`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    model: 'funtoken-pro',
+    messages: [{ role: 'user', content: '你好，请介绍一下 funtoken。' }],
+    stream: false,
+  }),
+})
+
+const result = await response.json()
+console.log(result.choices[0].message.content)`,
+  cURL: `curl https://token.fun.tv/v1/chat/completions \\
+  -H "Authorization: Bearer sk-funtoken-***" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "funtoken-pro",
+    "messages": [
+      {
+        "role": "user",
+        "content": "你好，请介绍一下 funtoken。"
+      }
+    ],
+    "stream": false
+  }'`,
+  Go: `package main
+
+import (
+  "bytes"
+  "fmt"
+  "io"
+  "net/http"
+)
+
+func main() {
+  baseURL := "https://token.fun.tv/v1"
+  apiKey := "sk-funtoken-***"
+  payload := []byte(\`{"model":"funtoken-pro","messages":[{"role":"user","content":"你好，请介绍一下 funtoken。"}],"stream":false}\`)
+
+  req, _ := http.NewRequest("POST", baseURL+"/chat/completions", bytes.NewReader(payload))
+  req.Header.Set("Authorization", "Bearer "+apiKey)
+  req.Header.Set("Content-Type", "application/json")
+
+  resp, _ := http.DefaultClient.Do(req)
+  defer resp.Body.Close()
+  body, _ := io.ReadAll(resp.Body)
+  fmt.Println(string(body))
+}`,
 }
 
-export function Features(_props: FeaturesProps) {
+const metrics = [
+  {
+    title: '总请求数（今日）',
+    from: 0,
+    to: 1728329,
+    separator: ',',
+    suffix: '',
+    change: '',
+    accent: 'orange',
+  },
+  {
+    title: '成功率（今日）',
+    from: 0,
+    to: 99.92,
+    separator: '',
+    suffix: '%',
+    change: '↑ 0.12%',
+    accent: 'green',
+  },
+  {
+    title: '平均延迟（今日）',
+    from: 0,
+    to: 382,
+    separator: '',
+    suffix: 'ms',
+    change: '↓ 8.87%',
+    accent: 'violet',
+  },
+  {
+    title: '已使用 Tokens（今日）',
+    from: 0,
+    to: 862320,
+    separator: ',',
+    suffix: 'K',
+    change: '',
+    accent: 'orange',
+  },
+] as const
+
+export function Features() {
   const { t } = useTranslation()
-
-  const features = [
-    {
-      id: 'fast',
-      num: '01',
-      title: t('Lightning Fast'),
-      desc: t(
-        'Optimized network architecture ensures millisecond response times'
-      ),
-      span: 'md:col-span-2',
-      icon: <Zap className='size-4 text-blue-400' />,
-      visual: (
-        <div className='mt-4 grid grid-cols-3 gap-2'>
-          {['OpenAI', 'Claude', 'Gemini', 'DeepSeek', 'Qwen', 'Llama'].map(
-            (name) => (
-              <div
-                key={name}
-                className='border-border/30 bg-muted/20 text-muted-foreground flex items-center justify-center rounded-lg border px-3 py-2 text-xs transition-colors duration-300 hover:border-blue-500/30 hover:bg-blue-500/5'
-              >
-                {name}
-              </div>
-            )
-          )}
-        </div>
-      ),
-    },
-    {
-      id: 'secure',
-      num: '02',
-      title: t('Secure & Reliable'),
-      desc: t(
-        'Enterprise-grade security with comprehensive permission management'
-      ),
-      span: 'md:col-span-1',
-      icon: <Shield className='size-4 text-emerald-400' />,
-      visual: (
-        <div className='mt-4 flex items-center justify-center'>
-          <div className='relative'>
-            <div className='flex size-16 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/5'>
-              <Shield
-                className='size-7 text-emerald-500/70'
-                strokeWidth={1.5}
-              />
-            </div>
-            <div className='absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-emerald-500'>
-              <svg
-                className='size-2.5 text-white'
-                fill='none'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-                strokeWidth={3}
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='m4.5 12.75 6 6 9-13.5'
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: 'global',
-      num: '03',
-      title: t('Global Coverage'),
-      desc: t('Multi-region deployment for stable global access'),
-      span: 'md:col-span-1',
-      icon: <Globe className='size-4 text-violet-400' />,
-      visual: (
-        <div className='mt-4 space-y-2'>
-          {[t('Load Balancing'), t('Rate Limiting'), t('Cost Tracking')].map(
-            (step, i) => (
-              <div key={step} className='flex items-center gap-2'>
-                <div
-                  className={`flex size-6 items-center justify-center rounded-full text-[10px] font-bold ${
-                    i === 1
-                      ? 'border border-blue-500/30 bg-blue-500/20 text-blue-500'
-                      : 'border-border/40 bg-muted text-muted-foreground border'
-                  }`}
-                >
-                  {i + 1}
-                </div>
-                <div className='bg-border/40 h-px flex-1' />
-                <span className='text-muted-foreground text-xs'>{step}</span>
-              </div>
-            )
-          )}
-        </div>
-      ),
-    },
-    {
-      id: 'developer',
-      num: '04',
-      title: t('Developer Friendly'),
-      desc: t('Compatible API routes for common AI application workflows'),
-      span: 'md:col-span-2',
-      icon: <Code className='size-4 text-amber-400' />,
-      visual: (
-        <div className='mt-4 flex items-center gap-3'>
-          <div className='flex -space-x-2'>
-            {['API', 'SDK', 'CLI', 'Docs'].map((n) => (
-              <div
-                key={n}
-                className='border-background from-muted to-muted/60 text-muted-foreground flex size-8 items-center justify-center rounded-full border-2 bg-gradient-to-br text-[9px] font-bold'
-              >
-                {n}
-              </div>
-            ))}
-          </div>
-          <div className='text-muted-foreground flex items-center gap-1.5 text-xs'>
-            <Code className='size-3.5 text-blue-500' />
-            {t('Multi-protocol Compatible')}
-          </div>
-        </div>
-      ),
-    },
-  ]
-
-  const additionalFeatures = [
-    {
-      icon: <Gauge className='size-5' strokeWidth={1.5} />,
-      title: t('High Performance'),
-      desc: t('Support for high concurrency with automatic load balancing'),
-    },
-    {
-      icon: <DollarSign className='size-5' strokeWidth={1.5} />,
-      title: t('Transparent Billing'),
-      desc: t('Pay-as-you-go with real-time usage monitoring'),
-    },
-    {
-      icon: <Users className='size-5' strokeWidth={1.5} />,
-      title: t('Team Collaboration'),
-      desc: t('Multi-user management with flexible permission allocation'),
-    },
-    {
-      icon: <HeartHandshake className='size-5' strokeWidth={1.5} />,
-      title: t('Open Source'),
-      desc: t('Community driven, self-hosted, and extensible'),
-    },
-  ]
+  const [activeTab, setActiveTab] = useState<CodeTab>('Python')
+  const activeCode = codeSamples[activeTab]
+  const activeCodeLines = activeCode.split('\n')
 
   return (
-    <section className='relative z-10 px-6 py-24 md:py-32'>
-      <div className='mx-auto max-w-6xl'>
-        <AnimateInView className='mb-16 max-w-lg'>
-          <p className='text-muted-foreground mb-3 text-xs font-medium tracking-widest uppercase'>
-            {t('Core Features')}
-          </p>
-          <h2 className='text-2xl leading-tight font-bold tracking-tight md:text-3xl'>
-            {t('Built for developers,')}
-            <br />
-            {t('designed for scale')}
+    <section className='relative overflow-hidden px-6 py-10 md:py-12'>
+      <div className='absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,175,90,0.13),transparent_28%),radial-gradient(circle_at_top_right,rgba(255,196,146,0.18),transparent_32%),linear-gradient(180deg,#fffdfb_0%,#fff8f3_100%)]' />
+      <div className='relative mx-auto max-w-7xl'>
+        <AnimateInView className='mb-6 text-center'>
+          <div className='funapi-editorial-kicker mb-2.5 inline-flex items-center gap-3 text-orange-500'>
+            <span className='size-2 rounded-full bg-orange-400' />
+            {t('为开发者而生')}
+            <span className='size-2 rounded-full bg-orange-400' />
+          </div>
+          <h2 className='funapi-editorial-title text-foreground text-[clamp(1.95rem,3.7vw,3.45rem)]'>
+            {t('为')}
+            <span className='funapi-editorial-emphasis mx-2'>
+              {t('开发者')}
+            </span>
+            {t('而生')}
           </h2>
+          <p className='funapi-editorial-body mx-auto mt-2.5 max-w-2xl text-[0.98rem] md:text-[1.02rem]'>
+            {t('极致的开发体验，从接入到监控更高效')}
+          </p>
         </AnimateInView>
 
-        {/* Bento grid */}
-        <div className='border-border/40 bg-border/40 grid gap-px overflow-hidden rounded-xl border md:grid-cols-3'>
-          {features.map((f, i) => (
-            <AnimateInView
-              key={f.id}
-              delay={i * 100}
-              animation='scale-in'
-              className={`bg-background group hover:bg-muted/20 p-7 transition-colors duration-300 md:p-8 ${f.span}`}
-            >
-              <div className='mb-3 flex items-center gap-3'>
-                <span className='border-border/40 bg-muted text-muted-foreground flex size-7 items-center justify-center rounded-md border text-[10px] font-semibold tabular-nums'>
-                  {f.num}
-                </span>
-                <h3 className='text-sm font-semibold'>{f.title}</h3>
+        <div className='grid gap-4 xl:grid-cols-[1.04fr_0.82fr] xl:items-start'>
+          <AnimateInView
+            animation='fade-right'
+            className='relative self-start overflow-hidden rounded-[24px] border border-slate-900/15 bg-[#18181d] shadow-[0_24px_58px_-38px_rgba(15,23,42,0.82)]'
+          >
+            <div className='absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-300/80 to-transparent' />
+            <div className='flex items-center justify-between border-b border-white/8 px-4 py-2.5'>
+              <div className='flex items-center gap-2 text-[0.95rem] text-slate-300'>
+                {tabs.map((tab) => (
+                  <button
+                    key={tab}
+                    type='button'
+                    aria-pressed={activeTab === tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`funapi-code-tab rounded-2xl px-3.5 py-1.5 ${activeTab === tab ? 'bg-white/8 text-white shadow-[inset_0_-2px_0_rgb(249,115,22)]' : 'text-slate-400'}`}
+                  >
+                    {tab}
+                  </button>
+                ))}
               </div>
-              <p className='text-muted-foreground text-sm leading-relaxed'>
-                {f.desc}
-              </p>
-              {f.visual}
-            </AnimateInView>
-          ))}
+              <button
+                type='button'
+                onClick={() => void copyToClipboard(activeCode)}
+                className='funapi-code-copy rounded-xl border border-white/10 bg-white/5 p-2 text-slate-300'
+                aria-label={t('Copy code')}
+              >
+                <HomeIcon
+                  icon={Copy01Icon}
+                  size={16}
+                  className='text-current'
+                />
+              </button>
+            </div>
+            <div className='grid gap-2 px-4 py-2.5 md:grid-cols-[auto_1fr]'>
+              <div className='hidden flex-col gap-1 pt-0.5 text-right text-[0.84rem] text-slate-500 md:flex'>
+                {activeCodeLines.map((_, index) => (
+                  <span key={index}>{index + 1}</span>
+                ))}
+              </div>
+              <pre className='overflow-x-auto text-[0.82rem] leading-[1.52] text-slate-100'>
+                <code>
+                  {activeCodeLines.map((line, index) => (
+                    <div key={index}>
+                      {line.includes('https://') ? (
+                        <>
+                          <span className='text-emerald-300'>
+                            {line.slice(0, line.indexOf('https://'))}
+                          </span>
+                          <span className='text-amber-300'>
+                            {line.slice(line.indexOf('https://'))}
+                          </span>
+                        </>
+                      ) : line.includes('Authorization') ? (
+                        <>
+                          <span className='text-amber-300'>
+                            {line.slice(0, line.indexOf('Authorization'))}
+                            Authorization
+                          </span>
+                          <span className='text-emerald-300'>
+                            {line.slice(
+                              line.indexOf('Authorization') +
+                                'Authorization'.length
+                            )}
+                          </span>
+                        </>
+                      ) : line.includes('model') &&
+                        line.includes('funtoken-pro') ? (
+                        <>
+                          <span className='text-amber-300'>
+                            {line.slice(0, line.indexOf('funtoken-pro'))}
+                          </span>
+                          <span className='text-emerald-300'>funtoken-pro</span>
+                          <span className='text-amber-300'>
+                            {line.slice(
+                              line.indexOf('funtoken-pro') +
+                                'funtoken-pro'.length
+                            )}
+                          </span>
+                        </>
+                      ) : line.includes('messages') ? (
+                        <>
+                          <span className='text-amber-300'>
+                            {line.slice(0, line.indexOf('messages'))}
+                            messages
+                          </span>
+                          <span className='text-slate-200'>
+                            {line.slice(
+                              line.indexOf('messages') + 'messages'.length
+                            )}
+                          </span>
+                        </>
+                      ) : line.includes('print(') ||
+                        line.includes('console.log') ? (
+                        <>
+                          <span className='text-violet-300'>
+                            {line.includes('print(') ? 'print' : 'console.log'}
+                          </span>
+                          <span className='text-slate-100'>
+                            {line.slice(
+                              line.includes('print(')
+                                ? 'print'.length
+                                : 'console.log'.length
+                            )}
+                          </span>
+                        </>
+                      ) : (
+                        <span
+                          className={
+                            line ? 'text-slate-200' : 'text-transparent'
+                          }
+                        >
+                          {line || '.'}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </code>
+              </pre>
+            </div>
+            <div className='pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-[linear-gradient(180deg,transparent,rgba(249,115,22,0.14))]' />
+          </AnimateInView>
+
+          <div className='grid gap-3.5 sm:grid-cols-2 xl:grid-cols-2'>
+            {metrics.map((item, index) => (
+              <AnimateInView
+                key={item.title}
+                delay={index * 70}
+                animation='fade-left'
+                className='funapi-interactive-card funapi-glass-panel rounded-[22px] border border-orange-100/80 bg-white/78 p-3.5 shadow-[0_18px_46px_-38px_rgba(249,115,22,0.38)] backdrop-blur-xl'
+              >
+                <div className='flex items-center gap-2 text-[0.86rem] text-slate-500'>
+                  <span
+                    className={`size-2.5 rounded-full ${
+                      item.accent === 'green'
+                        ? 'bg-emerald-400'
+                        : item.accent === 'violet'
+                          ? 'bg-violet-400'
+                          : 'bg-orange-400'
+                    }`}
+                  />
+                  {t(item.title)}
+                </div>
+                <div className='mt-1.5 flex items-end justify-between gap-2'>
+                  <div className='text-foreground text-[1.62rem] font-semibold tracking-tight'>
+                    <CountUp
+                      from={item.from}
+                      to={item.to}
+                      separator={item.separator}
+                      duration={1.25}
+                      delay={index * 0.08}
+                      className='tabular-nums'
+                    />
+                    {item.suffix}
+                  </div>
+                  {item.change ? (
+                    <div
+                      className={`pb-0.5 text-[0.84rem] font-medium ${
+                        item.accent === 'green'
+                          ? 'text-emerald-500'
+                          : 'text-violet-500'
+                      }`}
+                    >
+                      {item.change}
+                    </div>
+                  ) : null}
+                </div>
+                <div className='relative mt-2 h-16 overflow-hidden rounded-[16px] bg-[linear-gradient(180deg,rgba(255,247,239,0.95),rgba(255,255,255,0.25))]'>
+                  <div className='funapi-data-wave absolute inset-0 opacity-35' />
+                  <svg viewBox='0 0 220 86' className='h-full w-full'>
+                    <path
+                      d='M12 58 C30 56, 42 34, 62 40 S95 72, 118 54 148 24, 170 33 195 72, 208 38'
+                      fill='none'
+                      stroke={
+                        item.accent === 'green'
+                          ? '#22c55e'
+                          : item.accent === 'violet'
+                            ? '#8b5cf6'
+                            : '#fb923c'
+                      }
+                      strokeWidth='3'
+                      strokeLinecap='round'
+                    />
+                  </svg>
+                </div>
+              </AnimateInView>
+            ))}
+          </div>
         </div>
 
-        {/* Additional features row */}
-        <div className='mt-12 grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12'>
-          {additionalFeatures.map((f, i) => (
-            <AnimateInView
-              key={f.title}
-              delay={i * 100}
-              animation='fade-up'
-              className='flex flex-col items-center text-center'
-            >
-              <div className='text-muted-foreground border-border/50 bg-muted/30 group-hover:text-foreground mb-3 flex size-12 items-center justify-center rounded-xl border transition-colors'>
-                {f.icon}
-              </div>
-              <h3 className='mb-1.5 text-sm font-semibold'>{f.title}</h3>
-              <p className='text-muted-foreground max-w-[200px] text-xs leading-relaxed'>
-                {f.desc}
-              </p>
-            </AnimateInView>
-          ))}
-        </div>
       </div>
     </section>
   )

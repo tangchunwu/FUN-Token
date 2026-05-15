@@ -1,0 +1,49 @@
+<svg width="620" height="620" viewBox="0 0 620 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="glassStroke" x1="168" y1="152" x2="462" y2="466" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7D44FF"/>
+      <stop offset="0.22" stop-color="#1DB9FF"/>
+      <stop offset="0.5" stop-color="#A845FF"/>
+      <stop offset="0.73" stop-color="#FF6C3B"/>
+      <stop offset="1" stop-color="#FF3D77"/>
+    </linearGradient>
+    <linearGradient id="glassFill" x1="150" y1="136" x2="478" y2="482" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7EDCFF" stop-opacity="0.78"/>
+      <stop offset="0.34" stop-color="#4A5DFF" stop-opacity="0.5"/>
+      <stop offset="0.58" stop-color="#FF67CF" stop-opacity="0.46"/>
+      <stop offset="0.82" stop-color="#FF8A27" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#FF3E79" stop-opacity="0.75"/>
+    </linearGradient>
+    <radialGradient id="innerLight" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(315 312) rotate(90) scale(190)">
+      <stop stop-color="white" stop-opacity="0.86"/>
+      <stop offset="0.52" stop-color="white" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softShadow" x="92" y="98" width="438" height="438" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="34" stdDeviation="28" flood-color="#FF5C63" flood-opacity="0.28"/>
+      <feDropShadow dx="-22" dy="18" stdDeviation="22" flood-color="#20B7FF" flood-opacity="0.24"/>
+    </filter>
+    <filter id="blurGlow" x="50" y="50" width="520" height="520" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="310" cy="494" rx="172" ry="42" fill="#FF9454" opacity="0.18"/>
+  <ellipse cx="310" cy="505" rx="126" ry="25" fill="#FFFFFF" opacity="0.74"/>
+  <ellipse cx="310" cy="505" rx="92" ry="15" fill="#FFE8D8" opacity="0.84"/>
+
+  <g filter="url(#blurGlow)" opacity="0.42">
+    <rect x="172" y="172" width="276" height="276" rx="58" transform="rotate(45 310 310)" stroke="url(#glassStroke)" stroke-width="92"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="172" y="172" width="276" height="276" rx="58" transform="rotate(45 310 310)" fill="url(#glassFill)" fill-opacity="0.18" stroke="url(#glassStroke)" stroke-width="78"/>
+    <rect x="244" y="244" width="132" height="132" rx="27" transform="rotate(45 310 310)" fill="white" fill-opacity="0.82"/>
+    <rect x="172" y="172" width="276" height="276" rx="58" transform="rotate(45 310 310)" stroke="white" stroke-opacity="0.34" stroke-width="13"/>
+    <path d="M190 275C220 214 265 188 323 192" stroke="white" stroke-width="22" stroke-linecap="round" opacity="0.48"/>
+    <path d="M401 206C439 234 456 271 452 315" stroke="white" stroke-width="14" stroke-linecap="round" opacity="0.24"/>
+    <path d="M398 421C366 450 321 460 279 445" stroke="white" stroke-width="16" stroke-linecap="round" opacity="0.3"/>
+    <path d="M205 345C229 393 268 422 318 428" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" opacity="0.18"/>
+    <rect x="172" y="172" width="276" height="276" rx="58" transform="rotate(45 310 310)" fill="url(#innerLight)" opacity="0.72"/>
+  </g>
+</svg>

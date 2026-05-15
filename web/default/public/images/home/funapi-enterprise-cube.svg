@@ -1,0 +1,27 @@
+<svg width="360" height="280" viewBox="0 0 360 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="cubeBase" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(252 224) rotate(90) scale(42 100)">
+      <stop stop-color="#FFFDFB"/>
+      <stop offset="0.66" stop-color="#FFB16D"/>
+      <stop offset="1" stop-color="#FF6800"/>
+    </radialGradient>
+    <linearGradient id="coreFill" x1="224" y1="104" x2="271" y2="157" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFC077"/>
+      <stop offset="1" stop-color="#FF6400"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="252" cy="228" rx="98" ry="24" fill="url(#cubeBase)" opacity="0.5"/>
+  <ellipse cx="252" cy="233" rx="72" ry="17" fill="#FFF8F1" opacity="0.96"/>
+  <path d="M252 95L281 112V146L252 163L223 146V112L252 95Z" fill="url(#coreFill)"/>
+  <path d="M252 95L281 112L252 129L223 112L252 95Z" fill="#FFD6B2"/>
+  <path d="M252 129L281 112V146L252 163V129Z" fill="#FF8A2E"/>
+  <path d="M252 129L223 112V146L252 163V129Z" fill="#FFB066"/>
+  <rect x="195" y="70" width="114" height="114" rx="18" stroke="#FFE0C3" stroke-width="8" opacity="0.8"/>
+  <rect x="170" y="90" width="52" height="52" rx="10" stroke="#FFE8D3" stroke-width="6" opacity="0.7"/>
+  <rect x="282" y="96" width="44" height="44" rx="10" stroke="#FFE8D3" stroke-width="6" opacity="0.7"/>
+  <rect x="176" y="144" width="40" height="40" rx="10" stroke="#FFE8D3" stroke-width="6" opacity="0.65"/>
+  <rect x="287" y="149" width="34" height="34" rx="8" stroke="#FFE8D3" stroke-width="6" opacity="0.65"/>
+  <circle cx="326" cy="96" r="9" fill="#FF9442"/>
+  <circle cx="140" cy="166" r="10" fill="#FFF8F1" opacity="0.9"/>
+  <path d="M140 166C170 150 181 125 181 96" stroke="#FFE0BF" stroke-width="3"/>
+</svg>

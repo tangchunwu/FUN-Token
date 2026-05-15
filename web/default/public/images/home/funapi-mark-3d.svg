@@ -1,0 +1,59 @@
+<svg width="520" height="520" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="wingCore" x1="153" y1="88" x2="362" y2="338" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7F0"/>
+      <stop offset="0.18" stop-color="#FFD29B"/>
+      <stop offset="0.52" stop-color="#FF8A2A"/>
+      <stop offset="0.82" stop-color="#FF5A08"/>
+      <stop offset="1" stop-color="#EA3F00"/>
+    </linearGradient>
+    <linearGradient id="wingEdge" x1="160" y1="96" x2="350" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="0.36" stop-color="#FFDFAF"/>
+      <stop offset="0.75" stop-color="#FF9440"/>
+      <stop offset="1" stop-color="#FF6A13"/>
+    </linearGradient>
+    <linearGradient id="innerGlow" x1="221" y1="109" x2="315" y2="328" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFDF9"/>
+      <stop offset="0.5" stop-color="#FFE9D1"/>
+      <stop offset="1" stop-color="#FFB066" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="outerGlow" x="76" y="57" width="321" height="333" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="24"/>
+    </filter>
+    <filter id="softShadow" x="108" y="80" width="279" height="307" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feOffset dy="18"/>
+      <feGaussianBlur stdDeviation="18"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.976471 0 0 0 0 0.45098 0 0 0 0 0.101961 0 0 0 0.24 0"/>
+    </filter>
+    <filter id="glassBlur" x="132" y="90" width="231" height="282" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="1.8"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#outerGlow)" opacity="0.55">
+    <path d="M180 120C206 95 249 84 297 86C335 87 357 102 356 127C355 153 336 175 298 192L247 215C213 227 194 250 187 286L176 344C171 363 148 371 134 359C124 351 119 337 122 321L149 165C153 146 160 135 180 120Z" fill="#FF8A2A"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <path d="M176 118C201 93 244 84 293 86C334 88 360 104 359 132C358 161 338 183 300 198L248 219C214 232 196 256 188 293L175 353C170 374 144 383 129 369C118 359 113 344 117 326L145 162C149 144 157 132 176 118Z" fill="url(#wingCore)"/>
+  </g>
+
+  <path d="M176 118C201 93 244 84 293 86C334 88 360 104 359 132C358 161 338 183 300 198L248 219C214 232 196 256 188 293L175 353C170 374 144 383 129 369C118 359 113 344 117 326L145 162C149 144 157 132 176 118Z" fill="url(#wingEdge)"/>
+  <path d="M190 122C212 102 247 94 288 95C322 96 341 108 339 128C337 151 321 168 289 181L240 201C210 211 194 230 186 262L172 317C168 333 149 341 138 332C130 325 127 315 130 303L151 170C155 150 166 136 190 122Z" fill="url(#wingCore)"/>
+
+  <path d="M223 220C244 206 273 201 301 203C323 205 336 216 335 232C334 248 321 260 296 270L252 287C227 296 213 311 207 333L199 367C195 382 177 389 167 380C160 374 158 364 160 353L177 286C184 257 198 236 223 220Z" fill="url(#wingEdge)"/>
+  <path d="M234 221C254 210 279 207 304 210C321 212 330 220 329 233C328 245 317 255 295 263L253 278C231 286 219 300 213 319L204 356C201 368 187 375 179 369C173 364 172 357 174 347L188 293C195 264 210 238 234 221Z" fill="url(#wingCore)"/>
+
+  <path d="M236 310C250 301 270 296 291 297C306 299 315 306 314 315C313 326 304 334 286 341L258 351C244 357 236 366 232 379L226 403C223 413 211 418 204 413C200 410 198 404 199 397L209 359C214 339 222 321 236 310Z" fill="url(#wingEdge)"/>
+  <path d="M245 312C259 304 276 301 293 303C305 304 310 309 309 317C308 325 301 332 286 337L260 346C247 351 240 359 236 370L229 398C227 406 217 411 211 407C207 404 206 399 208 392L216 364C221 344 230 324 245 312Z" fill="url(#wingCore)"/>
+
+  <g filter="url(#glassBlur)">
+    <path d="M209 118C224 105 250 99 278 101C299 103 311 110 311 121C311 134 299 148 278 159L243 177C224 187 214 199 208 216L198 249C194 260 182 266 174 261C169 257 167 249 170 239L186 179C191 154 197 135 209 118Z" fill="url(#innerGlow)" opacity="0.8"/>
+    <path d="M243 230C254 224 271 221 286 223C298 224 304 230 303 238C302 245 295 251 282 256L254 266C241 271 233 279 230 289L225 307C222 315 213 319 207 315C203 312 202 306 204 300L213 274C218 256 228 239 243 230Z" fill="url(#innerGlow)" opacity="0.7"/>
+  </g>
+
+  <path d="M205 112C214 105 226 103 235 108C241 111 244 118 243 125C242 133 237 138 229 142C217 149 208 160 201 177" stroke="#FFF8EF" stroke-width="10" stroke-linecap="round" opacity="0.78"/>
+  <path d="M256 225C267 220 280 221 287 228C292 233 293 240 290 246C286 253 280 257 271 259" stroke="#FFF6E8" stroke-width="8" stroke-linecap="round" opacity="0.62"/>
+  <path d="M260 311C268 307 277 307 282 312C285 316 286 321 284 326C281 330 276 333 270 335" stroke="#FFF6E8" stroke-width="7" stroke-linecap="round" opacity="0.56"/>
+</svg>

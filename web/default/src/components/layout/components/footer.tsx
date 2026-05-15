@@ -16,11 +16,26 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from '@tanstack/react-router'
+import {
+  Github01Icon,
+  Group01Icon,
+  LinkSquare02Icon,
+  Mail01Icon,
+  NewTwitterIcon,
+} from '@hugeicons/core-free-icons'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import { useSystemConfig } from '@/hooks/use-system-config'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { HomeIcon } from '@/features/home/components'
 
 interface FooterLink {
   text: string
@@ -48,7 +63,7 @@ const NEW_API_FOOTER_ATTRIBUTION_KEY = [
 
 function FooterLinkItem(props: { link: FooterLink }) {
   const { t } = useTranslation()
-  const isExternal = props.link.href.startsWith('http')
+  const isExternal = /^(https?:|mailto:)/.test(props.link.href)
   const label = t(props.link.text)
 
   if (isExternal) {
@@ -97,17 +112,14 @@ function ProjectAttribution(props: { currentYear: number }) {
 
 export function Footer(props: FooterProps) {
   const { t } = useTranslation()
-  const {
-    systemName,
-    logo: systemLogo,
-    footerHtml,
-    demoSiteEnabled,
-  } = useSystemConfig()
+  const { systemName, logo: systemLogo, footerHtml } = useSystemConfig()
+  const [qqDialogOpen, setQqDialogOpen] = useState(false)
 
-  const displayLogo = systemLogo || props.logo || '/logo.png'
-  const displayName = systemName || props.name || 'New API'
-  const isDemoSiteMode = Boolean(demoSiteEnabled)
+  const displayLogo = props.logo || systemLogo || '/logo.png'
+  const displayName = props.name || systemName || 'New API'
   const currentYear = new Date().getFullYear()
+  const isFunToken =
+    displayName.toLowerCase().replace(/\s+/g, '') === 'funtoken'
 
   const fallbackColumns = useMemo<FooterColumnProps[]>(
     () => [
@@ -116,15 +128,15 @@ export function Footer(props: FooterProps) {
         links: [
           {
             text: t('footer.columns.about.links.aboutProject'),
-            href: 'https://docs.newapi.pro/wiki/project-introduction/',
+            href: 'https://token.fun.tv/',
           },
           {
             text: t('footer.columns.about.links.contact'),
-            href: 'https://docs.newapi.pro/support/community-interaction/',
+            href: 'https://token.fun.tv/',
           },
           {
             text: t('footer.columns.about.links.features'),
-            href: 'https://docs.newapi.pro/wiki/features-introduction/',
+            href: 'https://token.fun.tv/',
           },
         ],
       },
@@ -133,15 +145,15 @@ export function Footer(props: FooterProps) {
         links: [
           {
             text: t('footer.columns.docs.links.quickStart'),
-            href: 'https://docs.newapi.pro/getting-started/',
+            href: 'https://token.fun.tv/',
           },
           {
             text: t('footer.columns.docs.links.installation'),
-            href: 'https://docs.newapi.pro/installation/',
+            href: 'https://token.fun.tv/',
           },
           {
             text: t('footer.columns.docs.links.apiDocs'),
-            href: 'https://docs.newapi.pro/api/',
+            href: 'https://token.fun.tv/',
           },
         ],
       },
@@ -191,12 +203,69 @@ export function Footer(props: FooterProps) {
     )
   }
 
+  if (isFunToken) {
+    return (
+      <footer
+        className={cn(
+          'border-border/40 relative z-10 border-t',
+          props.className
+        )}
+      >
+        <div className='mx-auto flex max-w-6xl flex-col items-center gap-3 px-6 py-7'>
+          <Link to='/' className='group flex items-center gap-2.5'>
+            <img
+              src={displayLogo}
+              alt={displayName}
+              className='size-8 rounded-lg object-contain transition-transform duration-300 group-hover:scale-105'
+            />
+            <span className='text-lg font-semibold tracking-tight text-slate-950'>
+              {displayName}
+            </span>
+          </Link>
+          <div className='text-muted-foreground flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm'>
+            <span>
+              &copy; {currentYear} {displayName}.{' '}
+              {props.copyright ?? t('footer.defaultCopyright')}
+            </span>
+            <button
+              type='button'
+              className='hover:text-foreground inline-flex items-center gap-2 transition-colors'
+              onClick={() => setQqDialogOpen(true)}
+            >
+              <HomeIcon icon={Group01Icon} size={17} className='text-current' />
+              <span>QQ群: 1103444778</span>
+            </button>
+          </div>
+          <ProjectAttribution currentYear={currentYear} />
+        </div>
+        <Dialog open={qqDialogOpen} onOpenChange={setQqDialogOpen}>
+          <DialogContent className='max-w-[23rem] overflow-hidden p-0'>
+            <DialogHeader className='px-5 pt-5 text-left'>
+              <DialogTitle>FUN Token 售后群</DialogTitle>
+              <DialogDescription>群号：1103444778</DialogDescription>
+            </DialogHeader>
+            <div className='px-5 pb-5'>
+              <img
+                src='/images/home/funtoken-qq-group.jpg'
+                alt='FUN Token QQ 群二维码，群号 1103444778'
+                className='mx-auto mt-1 max-h-[70vh] w-full rounded-xl object-contain'
+              />
+              <p className='text-muted-foreground mt-3 text-center text-sm'>
+                扫一扫二维码，加入群聊
+              </p>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </footer>
+    )
+  }
+
   return (
     <footer
       className={cn('border-border/40 relative z-10 border-t', props.className)}
     >
-      <div className='mx-auto max-w-6xl px-6 py-12 md:py-16'>
-        <div className='flex flex-col justify-between gap-10 md:flex-row md:gap-16'>
+      <div className='mx-auto max-w-6xl px-6 py-8 md:py-10'>
+        <div className='flex flex-col justify-between gap-8 md:flex-row md:gap-12'>
           {/* Brand column */}
           <div className='shrink-0'>
             <Link to='/' className='group flex items-center gap-2.5'>
@@ -209,38 +278,82 @@ export function Footer(props: FooterProps) {
                 {displayName}
               </span>
             </Link>
-            <p className='text-muted-foreground/60 mt-3 max-w-[200px] text-xs leading-relaxed'>
+            <p className='text-muted-foreground/60 mt-2.5 max-w-[240px] text-xs leading-relaxed'>
               {t('Powerful API Management Platform')}
             </p>
           </div>
 
           {/* Links columns */}
-          {isDemoSiteMode && (
-            <div className='grid grid-cols-3 gap-8 md:gap-16'>
-              {displayColumns.map((column, index) => (
-                <div key={index}>
-                  <p className='text-muted-foreground/50 mb-3 text-xs font-medium tracking-wider uppercase'>
-                    {t(column.title)}
-                  </p>
-                  <ul className='space-y-2.5'>
-                    {column.links.map((link, linkIndex) => (
-                      <li key={linkIndex}>
-                        <FooterLinkItem link={link} />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className='grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-10'>
+            {displayColumns.map((column, index) => (
+              <div key={index}>
+                <p className='text-foreground/85 mb-3 text-lg font-semibold tracking-tight'>
+                  {t(column.title)}
+                </p>
+                <ul className='space-y-2.5'>
+                  {column.links.map((link, linkIndex) => (
+                    <li key={linkIndex}>
+                      <FooterLinkItem link={link} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Bottom section */}
-        <div className='border-border/30 mt-12 flex flex-col items-center justify-between gap-3 border-t pt-6 sm:flex-row'>
-          <p className='text-muted-foreground/40 text-xs'>
+        <div className='border-border/30 mt-8 flex flex-col items-center justify-between gap-4 border-t pt-5 sm:flex-row'>
+          <p className='text-muted-foreground/50 text-xs'>
             &copy; {currentYear} {displayName}.{' '}
             {props.copyright ?? t('footer.defaultCopyright')}
           </p>
+          <div className='flex items-center gap-3 text-slate-500'>
+            <a
+              href='https://token.fun.tv/'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='funapi-interactive-chip rounded-full border border-orange-100 bg-white/80 p-2.5 shadow-[0_12px_28px_-24px_rgba(249,115,22,0.45)] transition-colors hover:text-orange-500'
+            >
+              <HomeIcon
+                icon={Github01Icon}
+                size={16}
+                className='text-current'
+              />
+            </a>
+            <a
+              href='https://token.fun.tv/'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='funapi-interactive-chip rounded-full border border-orange-100 bg-white/80 p-2.5 shadow-[0_12px_28px_-24px_rgba(249,115,22,0.45)] transition-colors hover:text-orange-500'
+            >
+              <HomeIcon
+                icon={NewTwitterIcon}
+                size={16}
+                className='text-current'
+              />
+            </a>
+            <a
+              href='https://token.fun.tv/'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='funapi-interactive-chip rounded-full border border-orange-100 bg-white/80 p-2.5 shadow-[0_12px_28px_-24px_rgba(249,115,22,0.45)] transition-colors hover:text-orange-500'
+            >
+              <HomeIcon
+                icon={LinkSquare02Icon}
+                size={16}
+                className='text-current'
+              />
+            </a>
+            <a
+              href='https://token.fun.tv/'
+              className='funapi-interactive-chip rounded-full border border-orange-100 bg-white/80 p-2.5 shadow-[0_12px_28px_-24px_rgba(249,115,22,0.45)] transition-colors hover:text-orange-500'
+            >
+              <HomeIcon icon={Mail01Icon} size={16} className='text-current' />
+            </a>
+          </div>
+        </div>
+        <div className='mt-3'>
           <ProjectAttribution currentYear={currentYear} />
         </div>
       </div>

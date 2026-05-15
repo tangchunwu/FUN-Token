@@ -32,6 +32,62 @@ For commercial licensing, please contact support@quantumnous.com
     font-weight: var(--shiki-dark-font-weight) !important;
     text-decoration: var(--shiki-dark-text-decoration) !important;
   }
+
+  .funapi-home {
+    --funapi-editorial-serif:
+      'Iowan Old Style', 'Palatino Linotype', 'Noto Serif SC',
+      'Source Han Serif SC', 'Songti SC', 'STSong', serif;
+    --funapi-editorial-mono:
+      'SF Mono', 'JetBrains Mono', 'IBM Plex Mono', 'Fira Code', 'Courier New',
+      monospace;
+    --funapi-editorial-accent: #fb5a13;
+  }
+
+  .funapi-home .funapi-editorial-kicker {
+    font-family: inherit;
+    letter-spacing: 0;
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-transform: none;
+  }
+
+  .funapi-home .funapi-editorial-title {
+    font-family: var(--funapi-editorial-serif);
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.02;
+  }
+
+  .funapi-home .funapi-editorial-subtitle {
+    font-family: var(--funapi-editorial-serif);
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.08;
+  }
+
+  .funapi-home .funapi-editorial-emphasis {
+    color: var(--funapi-editorial-accent);
+    font-style: italic;
+    font-family: var(--funapi-editorial-serif);
+    font-weight: 500;
+  }
+
+  .funapi-home .funapi-editorial-caption {
+    font-family: var(--funapi-editorial-mono);
+    letter-spacing: 0.14em;
+  }
+
+  .funapi-home .funapi-editorial-card-title {
+    font-family: var(--funapi-editorial-serif);
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.14;
+  }
+
+  .funapi-home .funapi-editorial-body {
+    color: #475569;
+    line-height: 1.9;
+  }
 }
 
 @layer base {
@@ -581,5 +637,462 @@ For commercial licensing, please contact support@quantumnous.com
   .terminal-demo-spin,
   .terminal-demo-pulse {
     animation: none !important;
+  }
+}
+
+/* ── Homepage premium marketing animations ── */
+.funapi-hero-grid {
+  background-image:
+    linear-gradient(to right, rgb(251 146 60 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(251 146 60 / 0.07) 1px, transparent 1px);
+  background-size: 120px 120px;
+  mask-image: radial-gradient(circle at center, black 18%, transparent 78%);
+}
+
+.funapi-hero-glow {
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgb(251 146 60 / 0.22) 0%,
+    rgb(251 191 36 / 0.12) 35%,
+    transparent 72%
+  );
+  filter: blur(28px);
+  animation: funapiGlow 12s ease-in-out infinite alternate;
+}
+
+.funapi-glass-panel {
+  position: relative;
+  isolation: isolate;
+}
+
+.funapi-glass-panel::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    145deg,
+    rgb(255 255 255 / 0.78),
+    rgb(255 255 255 / 0.14) 42%,
+    rgb(255 244 235 / 0.58) 100%
+  );
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.funapi-card-shine {
+  background:
+    linear-gradient(
+      125deg,
+      transparent 10%,
+      rgb(255 255 255 / 0.55) 28%,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgb(255 255 255 / 0.25),
+      transparent 40%
+    );
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.funapi-premium-pill {
+  border: 1px solid rgb(253 186 116 / 0.5);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.88), rgb(255 247 239 / 0.75)),
+    radial-gradient(circle at left, rgb(255 205 156 / 0.24), transparent 42%);
+  box-shadow:
+    0 18px 40px -28px rgb(249 115 22 / 0.85),
+    inset 0 1px 0 rgb(255 255 255 / 0.95);
+  backdrop-filter: blur(18px);
+}
+
+.funapi-interactive-card,
+.funapi-interactive-chip {
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 220ms ease,
+    background-color 220ms ease,
+    filter 220ms ease;
+}
+
+.funapi-interactive-card:hover,
+.funapi-interactive-chip:hover {
+  transform: translateY(-3px);
+  border-color: rgb(251 146 60 / 0.42);
+  box-shadow: 0 30px 80px -42px rgb(249 115 22 / 0.52);
+}
+
+.funapi-interactive-card:active,
+.funapi-interactive-chip:active {
+  transform: translateY(-1px) scale(0.992);
+}
+
+.funapi-interactive-card:focus-visible,
+.funapi-interactive-chip:focus-visible {
+  outline: 2px solid rgb(251 146 60 / 0.42);
+  outline-offset: 3px;
+}
+
+.funapi-disabled-chip,
+.funapi-interactive-chip:disabled,
+.funapi-interactive-card[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.62;
+  box-shadow: none;
+}
+
+.funapi-disabled-chip:hover,
+.funapi-interactive-chip:disabled:hover,
+.funapi-interactive-card[aria-disabled='true']:hover {
+  transform: none;
+  border-color: rgb(253 186 116 / 0.32);
+  box-shadow: none;
+}
+
+.funapi-brand-chip:hover {
+  transform: translateY(-4px) scale(1.01);
+}
+
+.funapi-code-tab {
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.funapi-code-tab:hover {
+  color: rgb(255 255 255 / 0.92);
+  background: rgb(255 255 255 / 0.08);
+}
+
+.funapi-code-tab:active {
+  transform: scale(0.98);
+}
+
+.funapi-code-copy {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.funapi-code-copy:hover {
+  border-color: rgb(255 255 255 / 0.22);
+  background: rgb(255 255 255 / 0.09);
+}
+
+.funapi-code-copy:active {
+  transform: scale(0.96);
+}
+
+.funapi-orbit {
+  animation: funapiOrbitPulse 12s ease-in-out infinite;
+}
+
+.funapi-orbit-a {
+  animation-delay: 0s;
+}
+
+.funapi-orbit-b {
+  animation-delay: -2s;
+}
+
+.funapi-orbit-c {
+  animation-delay: -4s;
+}
+
+.funapi-orb {
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgb(255 255 255 / 0.95),
+    rgb(251 146 60 / 0.88) 55%,
+    rgb(234 88 12 / 0.72) 100%
+  );
+  box-shadow:
+    0 0 0 6px rgb(255 255 255 / 0.3),
+    0 18px 36px -16px rgb(249 115 22 / 0.85);
+  animation: funapiOrbFloat 8s ease-in-out infinite;
+}
+
+.funapi-logo-sheen {
+  background:
+    linear-gradient(
+      130deg,
+      transparent 10%,
+      rgb(255 255 255 / 0.12) 35%,
+      rgb(255 255 255 / 0.78) 50%,
+      rgb(255 255 255 / 0.15) 65%,
+      transparent 90%
+    ),
+    radial-gradient(circle at top, rgb(255 255 255 / 0.72), transparent 58%);
+  mix-blend-mode: screen;
+  animation: funapiSheen 7s linear infinite;
+}
+
+.funapi-logo-core {
+  background: radial-gradient(
+    circle at 32% 26%,
+    rgb(255 255 255 / 0.95),
+    rgb(255 247 240 / 0.42) 48%,
+    transparent 78%
+  );
+  filter: blur(10px);
+  opacity: 0.8;
+}
+
+.funapi-data-wave {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(255 255 255 / 0.28) 35%,
+    transparent 70%
+  );
+  animation: funapiDataWave 4.5s linear infinite;
+}
+
+.funapi-radial-sweep {
+  background: radial-gradient(
+    ellipse at center,
+    rgb(255 210 170 / 0.32) 0%,
+    rgb(255 194 125 / 0.12) 35%,
+    transparent 72%
+  );
+  filter: blur(24px);
+  animation: funapiSweep 14s ease-in-out infinite;
+}
+
+.funapi-ring {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.55),
+    0 24px 55px -45px rgb(249 115 22 / 0.5);
+  animation: funapiRingDrift 10s ease-in-out infinite;
+}
+
+.funapi-link-flow {
+  filter: drop-shadow(0 0 10px rgb(249 115 22 / 0.72))
+    drop-shadow(0 0 24px rgb(253 186 116 / 0.58));
+  mix-blend-mode: screen;
+}
+
+.funapi-architecture-flow path {
+  fill: none;
+}
+
+.funapi-flow-line {
+  fill: none;
+  opacity: 0.96;
+  stroke-dasharray: 38 226;
+  stroke-dashoffset: 0;
+  animation: funapiFlowOut 2.6s linear infinite;
+}
+
+.funapi-flow-line-b {
+  animation-delay: -0.8s;
+}
+
+.funapi-flow-line-c {
+  animation-delay: -1.6s;
+}
+
+.funapi-flow-node {
+  fill: #ff7a1a;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 10px rgb(249 115 22 / 0.75));
+  transform-origin: center;
+  animation: funapiNodePulse 1.9s ease-in-out infinite;
+}
+
+.funapi-flow-spark {
+  fill: #fff7ed;
+  opacity: 0.94;
+  filter: drop-shadow(0 0 5px rgb(255 255 255 / 0.95))
+    drop-shadow(0 0 14px rgb(249 115 22 / 0.95))
+    drop-shadow(0 0 28px rgb(251 146 60 / 0.7));
+}
+
+.funapi-flow-spark-b {
+  opacity: 0.82;
+}
+
+.funapi-flow-spark-c {
+  opacity: 0.88;
+}
+
+.funapi-ring-a {
+  animation-delay: 0s;
+}
+
+.funapi-ring-b {
+  animation-delay: -2.5s;
+}
+
+.funapi-ring-c {
+  animation-delay: -5s;
+}
+
+.funapi-marquee {
+  animation: funapiMarquee 28s linear infinite;
+  will-change: transform;
+}
+
+@keyframes funapiGlow {
+  from {
+    transform: translate3d(0, 0, 0) scale(0.96);
+    opacity: 0.48;
+  }
+  to {
+    transform: translate3d(18px, -12px, 0) scale(1.06);
+    opacity: 0.74;
+  }
+}
+
+@keyframes funapiFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(0, -10px, 0) rotate(-0.8deg);
+  }
+  50% {
+    transform: translate3d(0, 6px, 0) rotate(0.8deg);
+  }
+  75% {
+    transform: translate3d(0, -6px, 0) rotate(-0.5deg);
+  }
+}
+
+@keyframes funapiOrbFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+@keyframes funapiOrbitPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 0.92;
+  }
+}
+
+@keyframes funapiSheen {
+  0% {
+    transform: translateX(-30%) rotate(8deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(30%) rotate(8deg);
+    opacity: 0.95;
+  }
+  80%,
+  100% {
+    transform: translateX(54%) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+@keyframes funapiDataWave {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(160%);
+  }
+}
+
+@keyframes funapiSweep {
+  0%,
+  100% {
+    transform: translate3d(-2%, 0, 0) scale(0.96);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(2%, -3%, 0) scale(1.04);
+    opacity: 0.9;
+  }
+}
+
+@keyframes funapiRingDrift {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 0.72;
+  }
+  50% {
+    transform: scale(1.025) translateY(-3px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes funapiFlowOut {
+  from {
+    stroke-dashoffset: 0;
+    opacity: 0.2;
+  }
+  12% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 1;
+  }
+  to {
+    stroke-dashoffset: -264;
+    opacity: 0.2;
+  }
+}
+
+@keyframes funapiNodePulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scale(0.82);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes funapiMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .funapi-hero-glow,
+  .funapi-floating-card,
+  .funapi-orbit,
+  .funapi-orb,
+  .funapi-logo-sheen,
+  .funapi-data-wave,
+  .funapi-radial-sweep,
+  .funapi-ring,
+  .funapi-flow-line,
+  .funapi-flow-node,
+  .funapi-flow-spark,
+  .funapi-marquee {
+    animation: none !important;
+    transform: none !important;
   }
 }
